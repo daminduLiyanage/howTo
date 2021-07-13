@@ -41,6 +41,6 @@ find / perm /4000
 chmod u-x /usr/bin/passwd
 # 2. check 
 stat /usr/bin/passwd
-# 
+# 4655/-rwSr-xr-x
 # 3. reset
 chmod u+x /usr/bin/passwd
