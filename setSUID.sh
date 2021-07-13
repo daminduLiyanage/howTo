@@ -1,5 +1,4 @@
 # --- setSUID
-# 
 # two terminals used as student and root
 
 # 1s. view permission of passwd program
