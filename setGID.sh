@@ -23,17 +23,18 @@ su - bob
 cd /redfiles
 touch boby1
 stat boby1
-# 0664/-rw-rw-r--
+# Access: (0664/-rw-rw-r--)  Uid: (10014/     bob)   Gid: (10017/     bob)
 exit
 # group of this file is bob (private)
 # 7. set SGID permission
 chmod g+s /redfiles
 stat /redfiles
+# 2 for g not 4
 # 2775/drwxrwsr-x
 # 8. create a file in 
 su - bob 
 cd /redfiles
 touch boby2
 stat boby2
-# 0664/-rw-rw-r--
+# Access: (0664/-rw-rw-r--)  Uid: (10014/     bob)   Gid: (10016/  redhat)
 exit
