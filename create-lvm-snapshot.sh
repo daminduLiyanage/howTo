@@ -3,7 +3,7 @@
 # 1. create bigfile in original volume
 sudo dd if=/dev/zero of=/data/bigfile bs=1M count=50
 ls -l /data
-du -h /data
+sudo du -h /data
 # 2. create snapshot 
 # we specify 20M but snapshot size 32M as our PE size 32M
 sudo lvcreate -s -n datasnap -L 20M /dev/vg1/data
