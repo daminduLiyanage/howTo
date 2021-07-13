@@ -17,20 +17,23 @@ grep redhat /etc/group
 mkdir /redfiles
 # 5. set group permissions
 chgrp redhat /redfiles
-chgrp redhat /redfiles
+chmod g+rwx /redfiles
 # 6. create file in shared folder
 su - bob
 cd /redfiles
 touch boby1
 stat boby1
+# 0664/-rw-rw-r--
 exit
 # group of this file is bob (private)
 # 7. set SGID permission
 chmod g+s /redfiles
 stat /redfiles
+# 2775/drwxrwsr-x
 # 8. create a file in 
 su - bob 
 cd /redfiles
 touch boby2
 stat boby2
+# 0664/-rw-rw-r--
 exit
