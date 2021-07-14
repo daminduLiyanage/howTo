@@ -1,0 +1,7 @@
+https://serverpilot.io/docs/how-to-resolve-warning-remote-host-identification-has-changed/
+
+
+How to Resolve 'Warning! Remote Host Identification Has Changed!'
+
+Go to .ssh/known_hosts
+delete the one with [localhost]:2202 .... 
