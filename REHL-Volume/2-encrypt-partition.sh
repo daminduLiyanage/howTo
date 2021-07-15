@@ -4,9 +4,9 @@ sudo partx -a /dev/sdb
 # 2. prepare
 # if necessary unmounted  
 sudo umount /data
-cryptsetup luksFormat /dev/sdb5
+cryptsetup luksFormat /dev/sdb6 # dfk#gfhs
 # 3. Unlock the encryption to create the virtual device under /dev/mapper
-sudo cryptsetup luksOpen /dev/sdb5 secret
+sudo cryptsetup luksOpen /dev/sdb6 secret
 # 4. check device
 ls -l /dev/mapper
 # 5. Create an EXT4 file system in the new device
