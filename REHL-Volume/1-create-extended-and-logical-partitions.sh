@@ -23,22 +23,26 @@ p
 w
 # 9. check awareness
 cat /proc/partitions
+
 # 10. update kernel
 partx -a /dev/sdb
 cat /proc/partitions 
 # 11. format
-mkfs.ext3 /dev/sdb5 
+mkfs.ext3 /dev/sdb5
+lsblk -f
 # 12. mount point  
 mkdir /data 
 # 13. find UUID
-blkid /dev/vda5
+blkid /dev/sdb5
 # 14. edit 
-vi /etc/fstab UUID=<UUID> /data ext3 defaults 1 2 
+vi /etc/fstab 
+# add
+UUID=<UUID> /data ext3 defaults 1 2 
 # 15.Update the fstab 
-mount ­a 
-# 16.Observe:    
 mount -a
-df ­h     
+# 16.Observe:    
+mount
+df -h 
 # You will see that new file system is mounted. 
 
 # optional 
