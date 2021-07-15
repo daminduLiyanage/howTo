@@ -1,5 +1,7 @@
 # --- Creating partitions
+
 # 1. fdisk
+fdisk -l
 fdisk /dev/sdb 
 # 2. menu
 m
