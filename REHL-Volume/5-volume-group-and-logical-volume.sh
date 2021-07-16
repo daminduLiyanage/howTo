@@ -1,11 +1,11 @@
 # --- Creating a Volume group and a logical volume 
 
 # 1. Create a partition 
-# 2. Convert partion into a physical volume
-sudo pvcreate /dev/sdb5
-# 3. Create a new volume group with PE size 32MB 
-sudo vgcreate -s 32M vg1 /dev/sdb5
-# 4. create a logical volume of the size 4 extents (4*32MB in size) with the name "data" 
+# 2. create physical /dev/sdb7 
+sudo pvcreate /dev/sdb7
+# 3. create group /dev/vg1/ PE=32M
+sudo vgcreate -s 32M vg1 /dev/sdb7
+# 4. create /dev/vg1/data
 # lvcreate ­n data ­L 100M vg1
 sudo lvcreate -n data -l 4 vg1
 # to add
@@ -36,3 +36,5 @@ lvremove -f [vg_name]/[lv_name]
 vgchange -an [vg_name]
 vgremove [vg_name]
 pvremove [pv_name]
+
+# udevadm info --query=property  /dev/zero | egrep "DEVNAME|ID_FS_TYPE"

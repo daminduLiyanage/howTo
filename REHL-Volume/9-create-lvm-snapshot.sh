@@ -6,7 +6,7 @@ ls -l /data
 sudo du -h /data
 # 2. create snapshot 
 # we specify 20M but snapshot size 32M as our PE size 32M
-sudo lvcreate -s -n datasnap -L 20M /dev/vg1/data
+sudo lvcreate -s -n datasnap -L 70M /dev/vg1/data
 # 3. mount point 
 sudo mkdir /datasnap
 sudo mount /dev/vg1/datasnap /datasnap
@@ -14,7 +14,7 @@ ls -l /datasnap
 df -h
 # datasnap has original data
 # 4. overwrite bigfile with new data
-sudo dd if=/dev/zero of=/data/bigfile bs=1M count=70
+sudo dd if=/dev/zero of=/data/bigfile bs=1M count=20
 # 5. datasnapshot inaccessible (bigfile = 50M but snapshot only 32M)
 ls -l /datasnap
 # 6. remove snapshot since not usable 
@@ -22,16 +22,20 @@ sudo lvremove /dev/vg1/datasnap
 # 7. create snapshot and mount
 sudo lvcreate -s -n datasnap -L 20M /dev/vg1/data
 sudo mount /dev/vg1/datasnap /datasnap
+lsblk -f
+df -h
 # 8. change data in original volume
 sudo echo "User database" >> /data/passwd
 tail /data/passwd
+ls -l /data/passwd
+more /data/passwd
 tail /datasnap/passwd
 # observe changes not propogated to /datasnap/passwd
 # 9. merge snapshot with original volume 
 # unmount both Lvs
 sudo umount /data
 sudo umount /datasnap
-sudo lvconvert --merge vg1/datasnap
+sudo lvconvert --merge vg1/datasnap # rollback
 # 10. mount
 sudo mount /dev/vg1/data /data
 tail /data/passwd
