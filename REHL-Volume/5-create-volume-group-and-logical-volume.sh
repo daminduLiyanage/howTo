@@ -8,6 +8,7 @@ sudo vgcreate -s 32M vg1 /dev/sdb7
 # 4. create /dev/vg1/data
 # lvcreate ­n data ­L 100M vg1
 sudo lvcreate -n data -l 4 vg1
+# vgdisplay vg1
 # to add
 # vgextend vg1 /dev/sdb6
 # 5. Format
