@@ -14,12 +14,14 @@ chmod o+t /redfiles
 stat /redfiles
 # Access: (3775/drwxrwsr-t)  Uid: (    0/    root)   Gid: (10016/  redhat)
 # 3. try deleting as another user
+su - bob
+touch /redfiles/boby2
+exit
 su - max
 cd /redfiles
 rm boby2
-# stat /redfiles
-# boby2 owned by group 
-# but o+t doesn't permit delete even in shared folder
+# fail
+# o+t = --- --t will allow only creator to delete file
 exit
 # 4. try deleting as the user
 su - bob

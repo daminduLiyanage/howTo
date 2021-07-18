@@ -15,8 +15,9 @@ usermod -aG redhat max
 grep redhat /etc/group
 # 4. create directory
 mkdir /redfiles
-# 5. set group permissions
+# 5. group permission allow
 chgrp redhat /redfiles
+stat /redfiles
 chmod g+rwx /redfiles
 # 6. create file in shared folder
 su - bob
