@@ -73,7 +73,9 @@ wget -c https://download.docker.com/linux/centos/8/x86_64/test/Packages/containe
 sudo yum localinstall containerd.io-1.4.8-3.1.el8.x86_64.rpm
 # Configure containerd
 sudo mkdir -p /etc/containerd
+exit
 sudo containerd config default > /etc/containerd/config.toml
+
 
 # Restart containerd
 systemctl restart containerd
