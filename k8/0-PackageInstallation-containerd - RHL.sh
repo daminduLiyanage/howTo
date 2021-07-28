@@ -1,6 +1,10 @@
 # Optimized for RHL
 
+# check LAN ip address
+ip address
+
 sudo swapoff -a
+sudo yum install nano
 sudo nano /etc/fstab
 
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
@@ -58,10 +62,11 @@ sudo yum install docker-ce docker-ce-cli containerd.io
 
 sudo mkdir -p /etc/containerd
 containerd config default | sudo tee /etc/containerd/config.toml
+sudo nano /etc/containerd/config.toml
+            SystemdCgroup = true
 sudo systemctl restart containerd
-    SystemdCgroup = true
 # cgroup driver
-sudo yum install nano
+
 sudo nano /etc/containerd/config.toml
 sudo systemctl restart containerd
 
