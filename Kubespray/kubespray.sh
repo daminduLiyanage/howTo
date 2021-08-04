@@ -52,11 +52,11 @@ cat /etc/hosts
 ::1     localhost ip6-localhost ip6-loopback
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
-10.0.5.4 amaster.jhooq.com amaster
-10.0.5.2 kmaster.jhooq.com kmaster
-10.0.5.3 kworker.jhooq.com kworker
+10.0.5.4 amaster
+10.0.5.2 kkmaster
+10.0.5.3 kworker
 
-
+# in amaster:
 ssh-keygen -t rsa
 # Generating public/private rsa key pair.
 # Enter file in which to save the key (/home/vagrant/.ssh/id_rsa): 
@@ -82,7 +82,7 @@ ssh-keygen -t rsa
 ssh-copy-id 10.0.5.2
 ssh-copy-id 10.0.5.3
 
-
+# on all: 
 sudo apt-get update
 sudo apt install python3-pip
 python -V
@@ -90,11 +90,11 @@ python -V
 pip3 -V
 # pip 9.0.1 from /usr/lib/python3/dist-packages (python 3.6)
 
-
+# in amaster:
 git clone https://github.com/kubernetes-sigs/kubespray.git
 cd kubespray
 sudo pip3 install -r requirements.txt
-
+# ansible
 cp -rfp inventory/sample inventory/mycluster
 declare -a IPS=(10.0.5.2 10.0.5.3)
 CONFIG_FILE=inventory/mycluster/hosts.yml python3 contrib/inventory_builder/inventory.py ${IPS[@]}
@@ -102,7 +102,7 @@ cat inventory/mycluster/hosts.yml
 
 ansible-playbook -i inventory/mycluster/hosts.yml --become --become-user=root cluster.yml
 
-vagrant ssh kmaster
+# on kmaster:
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 sudo cp /etc/kubernetes/admin.conf /home/vagrant/config
 mkdir .kube
@@ -111,8 +111,6 @@ sudo chown $(id -u):$(id -g ) $HOME/.kube/config
 kubectl version
 # Client Version: version.Info{Major:"1", Minor:"18", GitVersion:"v1.18.2", GitCommit:"52c56ce7a8272c798dbc29846288d7cd9fbae032", GitTreeState:"clean", BuildDate:"2020-04-16T11:56:40Z", GoVersion:"go1.13.9", Compiler:"gc", Platform:"linux/amd64"}
 # Server Version: version.Info{Major:"1", Minor:"18", GitVersion:"v1.18.2", GitCommit:"52c56ce7a8272c798dbc29846288d7cd9fbae032", GitTreeState:"clean", BuildDate:"2020-04-16T11:48:36Z", GoVersion:"go1.13.9", Compiler:"gc", Platform:"linux/amd64"}
-
-
 kubectl get nodes
 # NAME    STATUS   ROLES    AGE   VERSION
 # node1   Ready    master   13m   v1.18.2
